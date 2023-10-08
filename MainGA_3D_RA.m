@@ -18,10 +18,10 @@ addpath('bestFIS');
 addpath('scenarios');
 
 %% FIS Structure
-load bestfis29.mat best_fis best_chrom
-best_chrom1 = best_chrom;
-fis = best_fis;
-% fis = FIS_script();  % Run to get the fistree
+% load bestfis29.mat best_fis best_chrom
+% best_chrom1 = best_chrom;
+% fis = best_fis;
+fis = FIS_script();  % Run to get the fistree
 
 %% Training Scenario
 scenarios = dir("scenarios/*.mat");
@@ -35,8 +35,8 @@ obs_prompt = "Obstacle Scenario: ";
 obs_mode = input(obs_prompt);
 
 %% GA Parameters
-NIND = 150;           % Number of individuals per subpopulations
-MAXGEN = 100;         % max Number of generations
+NIND = 100;           % Number of individuals per subpopulations
+MAXGEN = 50;         % max Number of generations
 GGAP = 0.8;          % Generation gap, how many new individuals are created
 SEL_F = 'sus';       % Name of selection function
 XOV_F = 'xovdp';     % Name of recombination function for individuals
@@ -45,20 +45,18 @@ OBJ_F = @(vec) CostFun_seq(vec,scenario,obs_mode,fis);   % Name of function for 
 
 %% Range of the population defined based on the ranges for each of the inputs and output variables
 run chrom_from_fis
-rule = [ones(1,90); 3*ones(1,90)];
-FieldDR = [Field_DR_in_out, rule]; % from chrom FIS
 
 %% GFS
 % Number of variables of objective function, in OBJ_F defined
    NVAR = size(FieldDR,2);   
 
 % Create population
+    Chrom = [];
 %    Chrom = crtbp(NIND, NVAR*PRECI);
-   Chrom = [chrom_fis_initial]; % also include manual one and best chrom (if available)
 %    Chrom = chrom_fis_initial; % also include manual one and best chrom (if available)
 
-   parfor  i = 1:NIND
-       Chrom = [Chrom;FieldDR(1,:) + rand(1,NVAR).*(FieldDR(2,:)-FieldDR(1,:))];
+   for  i = 1:NIND
+       Chrom = [Chrom; FieldDR(1,:) + rand(1,NVAR).*(FieldDR(2,:)-FieldDR(1,:))];
    end
 
 % reset count variables
@@ -104,6 +102,6 @@ FieldDR = [Field_DR_in_out, rule]; % from chrom FIS
 %% Best FIS
 best_chrom = Elite(1,:);
 best_fis = CreateBestFIS(best_chrom,fis);
-save('bestFIS\bestfis18','best_fis','best_chrom');
+save('bestFIS\bestfis31','best_fis','best_chrom');
 
 % End of script

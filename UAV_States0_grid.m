@@ -29,22 +29,22 @@ n2 = size(pos_right_XY,1);
 pos_UAV_right = [pos_right_XY(:,1), zeros(n2,1),pos_right_XY(:,2)] +c_right; % offset center
 
 %% Initialization at t=0
-psi_UAV = range_psi_left(1) + (range_psi_left(2)-range_psi_left(1)).*rand(n1,1); % headings of UAVs over time
+chi_UAV = range_psi_left(1) + (range_psi_left(2)-range_psi_left(1)).*rand(n1,1); % headings of UAVs over time
 vel_UAV = range_vel(1) + (range_vel(2)-range_vel(1)).*rand(n1,1); % velocities of UAVs over time
 gamma_UAV = range_gamma(1) + (range_gamma(2)-range_gamma(1)).*rand(n1,1); % headings of UAVs over time
 phi_UAV = range_phi(1) + (range_phi(2)-range_phi(1)).*rand(n1,1); % headings of UAVs over time
 phi_dot_UAV = range_phi_dot(1) + (range_phi_dot(2)-range_phi_dot(1)).*rand(n1,1); % headings of UAVs over time
 
-uav_states0_left = [pos_UAV_left, psi_UAV, vel_UAV, gamma_UAV, phi_UAV, phi_dot_UAV];
+uav_states0_left = [pos_UAV_left, vel_UAV, phi_UAV, gamma_UAV, chi_UAV, phi_dot_UAV];
 
 %% Initialization at t=0
-psi_UAV = range_psi_right(1) + (range_psi_right(2)-range_psi_right(1)).*rand(n2,1); % headings of UAVs over time
+chi_UAV = range_psi_right(1) + (range_psi_right(2)-range_psi_right(1)).*rand(n2,1); % headings of UAVs over time
 vel_UAV = range_vel(1) + (range_vel(2)-range_vel(1)).*rand(n2,1); % velocities of UAVs over time
 gamma_UAV = range_gamma(1) + (range_gamma(2)-range_gamma(1)).*rand(n2,1); % headings of UAVs over time
 phi_UAV = range_phi(1) + (range_phi(2)-range_phi(1)).*rand(n2,1); % headings of UAVs over time
 phi_dot_UAV = range_phi_dot(1) + (range_phi_dot(2)-range_phi_dot(1)).*rand(n2,1); % headings of UAVs over time
 
-uav_states0_right = [pos_UAV_right, psi_UAV, vel_UAV, gamma_UAV, phi_UAV, phi_dot_UAV];
+uav_states0_right = [pos_UAV_right, vel_UAV, phi_UAV, gamma_UAV, chi_UAV, phi_dot_UAV];
 
 %% UAV States0
 uav_states0 = [uav_states0_left; uav_states0_right];

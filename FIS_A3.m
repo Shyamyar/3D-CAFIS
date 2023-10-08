@@ -16,7 +16,7 @@ in2 = unit_mag; % Input 2 range unitless
 out1 = del_angle_pi; % Output range rad
 fisa3 = addInput(fisa3,in1,'Name',"interm_A1");
 fisa3 = addInput(fisa3,in2,'Name',"interm_A2");
-fisa3 = addOutput(fisa3,out1,'Name',"del_psi_ca");
+fisa3 = addOutput(fisa3,out1,'Name',"del_chi_ca");
 
 %% Add the MFs
 % Two boundaries for each Input and Output:
@@ -35,9 +35,9 @@ fisa3 = addMF(fisa3,"interm_A2",@trimf,[c cd d],"Name","Medium","VariableType","
 fisa3 = addMF(fisa3,"interm_A2",@trapmf,[cd d in2(2) in2(2)],"Name","High","VariableType","input");
 
 % Output 1 MFs
-fisa3 = addMF(fisa3,"del_psi_ca",@trapmf,[out1(1) out1(1) e ef],"Name","Negative","VariableType","output");
-fisa3 = addMF(fisa3,"del_psi_ca",@trimf,[e ef f],"Name","Zero","VariableType","output");
-fisa3 = addMF(fisa3,"del_psi_ca",@trapmf,[ef f out1(2) out1(2)],"Name","Positive","VariableType","output");
+fisa3 = addMF(fisa3,"del_chi_ca",@trapmf,[out1(1) out1(1) e ef],"Name","Negative","VariableType","output");
+fisa3 = addMF(fisa3,"del_chi_ca",@trimf,[e ef f],"Name","Zero","VariableType","output");
+fisa3 = addMF(fisa3,"del_chi_ca",@trapmf,[ef f out1(2) out1(2)],"Name","Positive","VariableType","output");
 
 %% Define Rulebase
 load rulelist.mat

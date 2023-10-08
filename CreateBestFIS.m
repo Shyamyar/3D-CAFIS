@@ -33,7 +33,7 @@ for i = 1:length(rule)
 end
 
 % in = [psi_AB psi_d d_h psi_B/A interm_A1 interm_A2 interm_A2 V_x d_v h_d
-% d_v_mag V_z interm_B1 d_v_mag d_v d_h V_z V_x interm_C1 interm_C2] - 
+% d_v_mag V_z interm_B1 d_v_mag d_h V_x d_v V_z interm_C1 interm_C2] - 
 % each variable has total 4 tunable params for 3 MFs
 
 % out = [interm_A1 interm_A2 del_psi_ca del_V_x_ca interm_B1 del_V_z_ca
@@ -44,7 +44,7 @@ end
 % del_h_ca interm_C1 interm_C2 W_h] - each variable has total 7 tunable 
 % params as consequents
 
-% [psi_AB psi_d d_h psi_B/A interm_A1 interm_A2 V_x d_v h_d d_v_mag V_z 
+% [psi_oi psi_d d_h psi_i/o interm_A1 interm_A2 V_x d_v del_h_t d_v_mag V_z 
 % interm_B1 interm_C1 interm_C2 del_psi_ca del_V_x_ca del_V_z_ca
 % del_h_ca W_h] for Chromosome of GA
 
@@ -52,10 +52,10 @@ fis = setTunableValues(fis,in(1:6),vec(1:24)); % psi_AB psi_d d_h psi_B/A interm
 fis = setTunableValues(fis,in(7),vec(21:24)); % interm_A2
 fis = setTunableValues(fis,in(8:13),vec(25:48)); % V_x d_v h_d d_v_mag V_z interm_B1
 fis = setTunableValues(fis,in(14),vec(37:40)); % d_v_mag
-fis = setTunableValues(fis,in(15),vec(37:40)); % d_v_mag
-fis = setTunableValues(fis,in(16),vec(9:12)); % d_h
-fis = setTunableValues(fis,in(17),vec(41:44)); % V_z
-fis = setTunableValues(fis,in(18),vec(25:28)); % V_x
+fis = setTunableValues(fis,in(15),vec(9:12)); % d_h
+fis = setTunableValues(fis,in(16),vec(25:28)); % V_x
+fis = setTunableValues(fis,in(17),vec(29:32)); % d_v
+fis = setTunableValues(fis,in(18),vec(41:44)); % V_z
 fis = setTunableValues(fis,in(19:20),vec(49:56)); % interm_C1 interm_C2
 
 fis = setTunableValues(fis,out(1:2),vec(17:24)); % interm_A1 interm_A2

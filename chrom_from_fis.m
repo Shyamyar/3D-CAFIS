@@ -1,5 +1,6 @@
 %% Creating chromosome using manual FIS
 run fis_ranges.m
+load("rulelist.mat")
 chrom_psi_oi = chrom_range(angle_pi);
 chrom_psi_d = chrom_range(angle_pi);
 chrom_d_h = chrom_range(dist_nm_mag);
@@ -19,7 +20,16 @@ chrom_del_V_x_ca = chrom_range(del_vel_kts);
 chrom_del_V_z_ca = chrom_range(del_vel_ftm);
 chrom_del_h_ca = chrom_range(del_dist_ft);
 chrom_W_h = chrom_range(unit_mag);
-chrom_rule = [3;3;2;2;2;2;2;1;1;3;2;2;2;1;1;2;1;1;2;1;1;2;2;1;2;3;3;2;1;1;3;2;1;3;3;1;2;1;2;3;2;1;2;3;2;3;3;1;3;2;3;1;1;3;2;1;1;2;2;1;2;3;3;1;1;3;2;2;1;3;2;1;1;2;1;2;3;2;1;2;3;1;1;2;2;1;3;2;3;3]';
+chrom_rule = [rulelist.FIS_A1(:,3);
+              rulelist.FIS_A2(:,3);
+              rulelist.FIS_A3(:,3);
+              rulelist.FIS_A4(:,3);
+              rulelist.FIS_B1(:,3);
+              rulelist.FIS_B2(:,3);
+              rulelist.FIS_B3(:,3);
+              rulelist.FIS_C1(:,3);
+              rulelist.FIS_C2(:,3);
+              rulelist.FIS_C3(:,3)]';
 
 % [psi_oi psi_d d_h psi_i/o interm_A1 interm_A2 V_x d_v del_h_t d_v_mag V_z 
 % interm_B1 interm_C1 interm_C2 del_psi_ca del_V_x_ca del_V_z_ca

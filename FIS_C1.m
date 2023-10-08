@@ -11,11 +11,11 @@ nz = 1;
 
 % Add Inputs and Outputs to FIS
 run fis_ranges.m
-in1 = dist_ft_mag; % Input 1 range ft (based on TA/RA limits)
-in2 = dist_nm_mag; % Input 2 range nmi (based on TA/RA limits)
+in1 = dist_nm_mag; % Input 1 range ft (based on TA/RA limits)
+in2 = vel_kts; % Input 2 range nmi (based on TA/RA limits)
 out1 = unit_mag; % Output range %
-fisc1 = addInput(fisc1,in1,'Name',"d_v_mag");
-fisc1 = addInput(fisc1,in2,'Name',"d_h");
+fisc1 = addInput(fisc1,in1,'Name',"d_h");
+fisc1 = addInput(fisc1,in2,'Name',"V_x");
 fisc1 = addOutput(fisc1,out1,'Name',"interm_C1");
 
 %% Add the MFs
@@ -25,14 +25,14 @@ cd = 0.5 * (in2(1) + in2(2)); c = 0.5 * (in2(1) + cd); d = 0.5 * (cd + in2(2)); 
 ef = 0.5 * (out1(1) + out1(2)); e = 0.5 * (out1(1) + ef); f = 0.5 * (ef + out1(2)); % Output 1
 
 % Input 1 MFs
-fisc1 = addMF(fisc1,"d_v_mag",@trapmf,[in1(1) in1(1) a ab],"Name","Low","VariableType","input");
-fisc1 = addMF(fisc1,"d_v_mag",@trimf,[a ab b],"Name","Medium","VariableType","input");
-fisc1 = addMF(fisc1,"d_v_mag",@trapmf,[ab b in1(2) in1(2)],"Name","High","VariableType","input");
+fisc1 = addMF(fisc1,"d_h",@trapmf,[in1(1) in1(1) a ab],"Name","Low","VariableType","input");
+fisc1 = addMF(fisc1,"d_h",@trimf,[a ab b],"Name","Medium","VariableType","input");
+fisc1 = addMF(fisc1,"d_h",@trapmf,[ab b in1(2) in1(2)],"Name","High","VariableType","input");
 
 % Input 2 MFs
-fisc1 = addMF(fisc1,"d_h",@trapmf,[in2(1) in2(1) c cd],"Name","Low","VariableType","input");
-fisc1 = addMF(fisc1,"d_h",@trimf,[c cd d],"Name","Medium","VariableType","input");
-fisc1 = addMF(fisc1,"d_h",@trapmf,[cd d in2(2) in2(2)],"Name","High","VariableType","input");
+fisc1 = addMF(fisc1,"V_x",@trapmf,[in2(1) in2(1) c cd],"Name","Negative","VariableType","input");
+fisc1 = addMF(fisc1,"V_x",@trimf,[c cd d],"Name","Zero","VariableType","input");
+fisc1 = addMF(fisc1,"V_x",@trapmf,[cd d in2(2) in2(2)],"Name","Positive","VariableType","input");
 
 % Output 1 MFs
 fisc1 = addMF(fisc1,"interm_C1",@trapmf,[out1(1) out1(1) e ef],"Name","Low","VariableType","output");

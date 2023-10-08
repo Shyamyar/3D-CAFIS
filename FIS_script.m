@@ -37,10 +37,10 @@ fisc = fistree([fisc1 fisc2 fisc3],[conc1;conc2]);
 % plotfis(fisc)
 
 %% Run FISs for FIS Tree Whole
-con1 = ["FIS_B2/d_v_mag" "FIS_C1/d_v_mag"];
+con1 = ["FIS_B1/d_v" "FIS_C2/d_v"];
 con2 = ["FIS_C2/V_z" "FIS_B2/V_z"];
 con3 = ["FIS_A2/d_h" "FIS_C1/d_h"];
-con4 = ["FIS_A4/V_x" "FIS_C2/V_x"];
+con4 = ["FIS_A4/V_x" "FIS_C1/V_x"];
 
 fis = fistree([fisa1 fisa2 fisa3 fisa4 fisb1 fisb2 fisb3 fisc1 fisc2 fisc3],...
     [cona1;cona2;cona3;conb1;conb2;conc1;conc2;con1;con2;con3;con4]);

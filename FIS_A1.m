@@ -15,7 +15,7 @@ in1 = angle_pi; % Input 1 range rad
 in2 = angle_pi; % Input 2 range rad
 out1 = angle_pi; % Output range unitless
 fisa1 = addInput(fisa1,in1,'Name',"psi_oi");
-fisa1 = addInput(fisa1,in2,'Name',"psi_d");
+fisa1 = addInput(fisa1,in2,'Name',"chi_d");
 fisa1 = addOutput(fisa1,out1,'Name',"interm_A1");
 
 %% Add the MFs
@@ -30,9 +30,9 @@ fisa1 = addMF(fisa1,"psi_oi",@trimf,[a ab b],"Name","Zero","VariableType","input
 fisa1 = addMF(fisa1,"psi_oi",@trapmf,[ab b in1(2) in1(2)],"Name","Positive","VariableType","input");
 
 % Input 2 MFs
-fisa1 = addMF(fisa1,"psi_d",@trapmf,[in2(1) in2(1) c cd],"Name","Negative","VariableType","input");
-fisa1 = addMF(fisa1,"psi_d",@trimf,[c cd d],"Name","Zero","VariableType","input");
-fisa1 = addMF(fisa1,"psi_d",@trapmf,[cd d in2(2) in2(2)],"Name","Positive","VariableType","input");
+fisa1 = addMF(fisa1,"chi_d",@trapmf,[in2(1) in2(1) c cd],"Name","Negative","VariableType","input");
+fisa1 = addMF(fisa1,"chi_d",@trimf,[c cd d],"Name","Zero","VariableType","input");
+fisa1 = addMF(fisa1,"chi_d",@trapmf,[cd d in2(2) in2(2)],"Name","Positive","VariableType","input");
 
 % Output 1 MFs
 fisa1 = addMF(fisa1,"interm_A1",@trapmf,[out1(1) out1(1) e ef],"Name","Negative","VariableType","output");

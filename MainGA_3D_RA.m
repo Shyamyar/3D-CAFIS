@@ -6,40 +6,55 @@
 % Author:     Hartmut Pohlheim
 % History:    23.03.94     file created
 %             15.01.03     tested under MATLAB v6 by Alex Shenfield
+%% Initialization
 clc;
 clear;
 close all;
 
+tic;
 addpath('GA');
 addpath('../obj_detection');
 addpath('bestFIS');
 addpath('scenarios');
 
-run chrom_from_fis
-
-fis = FIS_script();  % Run to get the fistree
-% best_chrom = [];
-load bestfis15.mat best_chrom
+%% FIS Structure
+load bestfis29.mat best_fis best_chrom
 best_chrom1 = best_chrom;
+fis = best_fis;
+% fis = FIS_script();  % Run to get the fistree
 
+%% Training Scenario
+scenarios = dir("scenarios/*.mat");
+scenario_str = string({scenarios.name});
+disp([(1:size(scenario_str,2))',scenario_str'])
+prompt = "Choose a Scenario: ";
+scenario_num = input(prompt);
+scenario  = scenario_str(scenario_num);
+
+obs_prompt = "Obstacle Scenario: ";
+obs_mode = input(obs_prompt);
+
+%% GA Parameters
 NIND = 150;           % Number of individuals per subpopulations
 MAXGEN = 100;         % max Number of generations
 GGAP = 0.8;          % Generation gap, how many new individuals are created
 SEL_F = 'sus';       % Name of selection function
 XOV_F = 'xovdp';     % Name of recombination function for individuals
 MUT_F = 'mutUNI';    % Name of mutation function for individuals
-OBJ_F = @(vec) CostFun(vec,fis);   % Name of function for objective values
+OBJ_F = @(vec) CostFun_seq(vec,scenario,obs_mode,fis);   % Name of function for objective values
 
-% Range of the population defined based on the ranges for each of the inputs and output variables
+%% Range of the population defined based on the ranges for each of the inputs and output variables
+run chrom_from_fis
 rule = [ones(1,90); 3*ones(1,90)];
-FieldDR = [Field_DR_in_out, rule];
+FieldDR = [Field_DR_in_out, rule]; % from chrom FIS
 
+%% GFS
 % Number of variables of objective function, in OBJ_F defined
    NVAR = size(FieldDR,2);   
 
 % Create population
 %    Chrom = crtbp(NIND, NVAR*PRECI);
-   Chrom = [best_chrom1;chrom_fis_initial]; % also include manual one and best chrom (if available)
+   Chrom = [chrom_fis_initial]; % also include manual one and best chrom (if available)
 %    Chrom = chrom_fis_initial; % also include manual one and best chrom (if available)
 
    parfor  i = 1:NIND
@@ -85,7 +100,8 @@ FieldDR = [Field_DR_in_out, rule];
       gen=gen+1;
   
    end
-% Best FIS
+
+%% Best FIS
 best_chrom = Elite(1,:);
 best_fis = CreateBestFIS(best_chrom,fis);
 save('bestFIS\bestfis18','best_fis','best_chrom');

@@ -13,7 +13,7 @@ close all;
 
 tic;
 addpath('GA');
-addpath('../obj_detection');
+addpath('obj_detection');
 addpath('bestFIS');
 addpath('scenarios');
 

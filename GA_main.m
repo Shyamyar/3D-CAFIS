@@ -3,7 +3,7 @@ clc;
 clear;
 close all;
 
-addpath('../obj_detection');
+addpath('obj_detection');
 addpath('bestFIS');
 addpath('scenarios');
 addpath('FIS_blocks6');

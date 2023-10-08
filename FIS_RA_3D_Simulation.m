@@ -4,7 +4,7 @@ clear;
 close all;
 
 %% Initialization 
-addpath('../obj_detection');
+addpath('obj_detection');
 addpath('bestFIS');
 addpath('scenarios');
 addpath('FIS_blocks6');

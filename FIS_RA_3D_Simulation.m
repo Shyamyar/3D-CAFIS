@@ -24,10 +24,10 @@ th      = thresholds(e, sensor);
 time = sim_time(th.tau); % time parameters
 
 % Some Checks
-store   = false; % Storing the results
+store   = true; % Storing the results
 
 %% Initiate CA System
-fis_type    = "nca";
+fis_type    = "gca";
 [r, n]      = fis_ranges(th, time.t_inc);
 switch fis_type
     case "nca"
@@ -111,9 +111,9 @@ else
     uavs_str_ = sprintf("[%d-%d]_", uavs(1),uavs(end));
 end
 scenario_nums_str = mat2str(scenario_nums);
-workspace_file  = "results\scenario"+ scenario_nums_str + "_" + uavs_str_ + fis_type + "_";
-picture_title   = "pictures\scenario"+ scenario_nums_str + "_" + uavs_str_ + fis_type + "_";
-video_title     = "videos\scenario"+ scenario_nums_str + "_" + uavs_str_ + fis_type + "_";
+workspace_file  = "..\results\files\scenario"+ scenario_nums_str + "_" + uavs_str_ + fis_type + "_";
+picture_title   = "..\results\pictures\scenario"+ scenario_nums_str + "_" + uavs_str_ + fis_type + "_";
+video_title     = "..\results\videos\scenario"+ scenario_nums_str + "_" + uavs_str_ + fis_type + "_";
 
 %% Times for plots
 t_comp  = 1:size(Thist, 2);
@@ -131,13 +131,13 @@ else
     t_snaps = [5, 45, 65, 75, floor(Thist(end))];
 end
 
+return
+
 %% Storage
 if store
     close all
     save(workspace_file); % Save Workspace
 end
-
-return
 
 %% Plot System
 fig1_name = 'preview';

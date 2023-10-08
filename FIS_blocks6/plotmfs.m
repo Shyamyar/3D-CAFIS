@@ -28,7 +28,7 @@ for i = 1:n_tot
     set(findall(gcf,'type','text'),'FontSize', fontsize)
 end
 if store
-    exportgraphics(fig, "pictures\scenario" + fis_type + "_" + ...
+    exportgraphics(fig, "..\results\pictures\scenario" + fis_type + "_" + ...
         fig_name + ".png", 'Resolution', 300)
 end
 end

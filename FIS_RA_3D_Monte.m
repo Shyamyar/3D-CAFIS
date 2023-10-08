@@ -128,9 +128,9 @@ if ca_num == 1
     states0                 = states0(collided_uavs_post, :);
     target_states0          = target_states0(collided_uavs_post, :);
     % if scenario_create
-    %     save(filename, 'states0', 'target_states0');
     %     filename  = 'scenarios\scenario_coll_' ...
     %                  + string(total_collisions_post)+'.mat';
+    %     save(filename, 'states0', 'target_states0');
     % end
 end
 
